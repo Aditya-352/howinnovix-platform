@@ -26,8 +26,8 @@ exports.register = async (req, res) => {
       doctor: { id: doctor._id, name: doctor.name, email: doctor.email, title: doctor.title }
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error during registration' });
+    console.error('❌ Detailed Registration Error:', err);
+    res.status(500).json({ message: 'Server error during registration', detail: err.message });
   }
 };
 

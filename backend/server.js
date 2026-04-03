@@ -15,6 +15,16 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Debugging checks for Render environment
+console.log('--- Startup Diagnostic ---');
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+if (!process.env.JWT_SECRET) {
+  console.error('❌ CRITICAL ERROR: JWT_SECRET is missing! Auth will fail.');
+}
+console.log('-------------------------');
+
 app.use(express.json());
 
 // Ensure uploads folder exists
