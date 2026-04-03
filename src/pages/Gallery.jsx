@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import API_URL from '../config/api';
 
 export default function Gallery() {
   const [innovations, setInnovations] = useState([]);
@@ -8,7 +9,7 @@ export default function Gallery() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch('/api/innovations')
+    fetch(`${API_URL}/api/innovations`)
     .then(res => res.json())
     .then(data => {
       if (Array.isArray(data)) {

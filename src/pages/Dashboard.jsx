@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
+import API_URL from '../config/api';
 
 export default function Dashboard() {
   const { showToast } = useToast();
@@ -16,7 +17,7 @@ export default function Dashboard() {
     const token = localStorage.getItem('doctorToken');
     if (!token) return navigate('/login');
 
-    fetch('/api/innovations', {
+    fetch(`${API_URL}/api/innovations`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
     .then(res => res.json())

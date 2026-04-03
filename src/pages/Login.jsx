@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
+import API_URL from '../config/api';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -68,7 +69,7 @@ export default function Login() {
         <div className="mt-8 pt-6 border-t border-outline-variant/10 text-center space-y-4">
             <p className="text-sm text-on-surface-variant font-body">Don't have an account? <Link to="/register" className="text-primary font-bold hover:underline">Apply Here</Link></p>
             <button onClick={async () => {
-                await fetch('/api/auth/seed', { method: 'POST' });
+                await fetch(`${API_URL}/api/auth/seed`, { method: 'POST' });
                 showToast('Test doctor seeded: admin@howinnovix.com / password123', 'success');
             }} className="text-xs text-secondary font-bold hover:underline opacity-50 hover:opacity-100">
                 [Dev] Create Test Seed Doctor

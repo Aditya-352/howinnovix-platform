@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext, useRef } from 'react';
 import { Link, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
+import API_URL from '../config/api';
 
 const SubmissionContext = createContext();
 
@@ -157,7 +158,7 @@ function Step4() {
       Object.keys(formData).forEach(key => formPayload.append(key, formData[key]));
       files.forEach(file => formPayload.append('files', file));
       
-      const res = await fetch('/api/innovations', {
+      const res = await fetch(`${API_URL}/api/innovations`, {
         method: 'POST',
         body: formPayload
       });

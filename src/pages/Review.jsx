@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
+import API_URL from '../config/api';
 
 export default function Review() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Review() {
        return;
     }
 
-    fetch(`/api/innovations/${id}`)
+    fetch(`${API_URL}/api/innovations/${id}`)
       .then(res => res.json())
       .then(data => {
          setItem(data);
