@@ -43,13 +43,19 @@ app.use('/api/innovations', innovationRoutes);
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/innovex';
 
+// Disable Mongoose buffering so that it fails fast if not connected
+mongoose.set('bufferCommands', false);
+
 mongoose.connect(MONGO_URI)
   .then(() => {
-    console.log('✅ Connected to MongoDB');
+    console.log('✅ Connected to MongoDB Atlas');
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
   .catch(err => {
-    console.error('❌ MongoDB connection error:', err);
+    console.error('❌ Mongoose Connection Error Details:', err.name, ':', err.message);
+    if (err.message.includes('buffering timed out')) {
+      console.error('👉 TIP: This usually means your MongoDB IP Whitelist is blocking Render. See walkthrough.md!');
+    }
     console.warn('⚠️ Starting server without DB connection (fallback mode)');
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} (no DB)`));
   });
